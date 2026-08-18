@@ -1,6 +1,6 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro/zod";
-import { PageView, db } from "astro:db";
+import { PageView, db } from "../lib/db";
 import { isbot } from "isbot";
 
 export const server = {

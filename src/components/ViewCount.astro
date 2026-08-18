@@ -1,5 +1,6 @@
 ---
-import { PageView, count, db, eq } from "astro:db";
+import { count, eq } from "drizzle-orm";
+import { PageView, db } from "../lib/db";
 const { url } = Astro.props;
 
 const viewCount = await db

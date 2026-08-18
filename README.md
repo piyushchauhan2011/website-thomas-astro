@@ -39,6 +39,21 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro preview` |
 | `npm run astro --help` | Get help using the Astro CLI                       |
 
+## 🗄️ Database
+
+Page views are stored in a libSQL database, read and written through Drizzle ORM.
+The schema lives in `src/lib/db.ts`.
+
+| Command           | Action                                             |
+| :---------------- | :------------------------------------------------- |
+| `npm run db-push` | Sync the schema in `src/lib/db.ts` to the database |
+| `npm run db-seed` | Insert a couple of sample page views               |
+
+Set `ASTRO_DB_REMOTE_URL` and `ASTRO_DB_APP_TOKEN` in `.env` (or in the real
+environment, as on Vercel) to point at the production database. Without them the
+dev server and both commands fall back to a local SQLite file at
+`.astro/local.db`, which needs `npm run db-push` once to create the table.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

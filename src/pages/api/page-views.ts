@@ -2,17 +2,16 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 import {
-  db,
   and,
+  count,
+  countDistinct,
   desc,
   gte,
   like,
   lte,
   sql,
-  count,
-  countDistinct,
-} from "astro:db";
-import { PageView } from "astro:db";
+} from "drizzle-orm";
+import { PageView, db } from "../../lib/db";
 
 export const GET: APIRoute = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;

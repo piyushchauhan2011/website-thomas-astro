@@ -1,8 +1,6 @@
-import { db, PageView } from "astro:db";
+import { PageView, db } from "../src/lib/db";
 
-export default async function () {
-  await db.insert(PageView).values([
-    { date: new Date(), url: "/" },
-    { date: new Date(new Date().getTime() - 1000), url: "/test" },
-  ]);
-}
+await db.insert(PageView).values([
+  { date: new Date(), url: "/" },
+  { date: new Date(Date.now() - 1000), url: "/test" },
+]);

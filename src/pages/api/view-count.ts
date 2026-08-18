@@ -2,7 +2,8 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 import { isbot } from "isbot";
-import { PageView, eq, db, count } from "astro:db";
+import { count, eq } from "drizzle-orm";
+import { PageView, db } from "../../lib/db";
 
 export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url).searchParams.get("url");
