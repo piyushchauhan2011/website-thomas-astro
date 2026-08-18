@@ -1,16 +1,16 @@
 import { defineConfig, fontProviders } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import vercel from "@astrojs/vercel";
 import { remarkReadingTime } from "./src/utils/calculate-reading-time.js";
 import react from "@astrojs/react";
-import db from "@astrojs/db";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import algolia from "./algolia-integration";
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
-  integrations: [react(), db(), sitemap(), mdx(), algolia()],
+  integrations: [react(), sitemap(), mdx(), algolia()],
   prefetch: {
     prefetchAll: true,
   },
@@ -57,8 +57,14 @@ export default defineConfig({
     },
   },
   markdown: {
-    remarkPlugins: [remarkReadingTime],
+    // Astro 7 defaults to the Sätteri processor. Stay on remark/rehype so the
+    // rendered HTML of existing posts is unchanged and `remarkReadingTime` keeps
+    // running; `markdown.remarkPlugins` itself is deprecated.
+    processor: unified({ remarkPlugins: [remarkReadingTime] }),
   },
+  // Astro 7 changed the default to `'jsx'`, which strips whitespace between
+  // inline elements the way React does. `true` keeps HTML whitespace rules.
+  compressHTML: true,
   build: {
     format: "file",
   },
